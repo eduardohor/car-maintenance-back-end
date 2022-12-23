@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function register(RegisterRequest $request){
+    public function register(RegisterRequest $request)
+    {
         return $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -17,10 +18,11 @@ class AuthController extends Controller
         ]);
     }
 
-    public function login(LoginRequest $request){
+    public function login(LoginRequest $request)
+    {
 
         $credentials = $request->all();
-        if(!$token = auth('api')->attempt($credentials)){
+        if (!$token = auth('api')->attempt($credentials)) {
             return response()->json(['error' => 'Usuário ou senha inválido!'], 403);
         };
 
@@ -30,16 +32,21 @@ class AuthController extends Controller
         ]);
     }
 
-    public function logout(){
-        return 'logout';
+    public function logout()
+    {
+        auth('api')->logout();
+
+        return response()->json(['msg' => 'Logout realizado com sucesso!']);
     }
 
-    public function refresh(){
+    public function refresh()
+    {
         $token = auth('api')->refresh();
         return response()->json(['token' => $token]);
     }
 
-    public function me(){
-       return auth()->user();
+    public function me()
+    {
+        return auth()->user();
     }
 }
