@@ -9,7 +9,19 @@ class Maintenance extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'vehicle_id',
+        'problem_presented',
+        'type_of_maintenance',
+        'scheduling'
+    ];
+
     public function user(){
         return $this->belongsTo(User::class);
+    }
+
+    public function vehicle(){
+        return $this->belongsTo(Vehicle::class);
     }
 }

@@ -46,7 +46,7 @@ class VehicleController extends Controller
      */
     public function show($id)
     {
-        if(!$vehicle = $this->vehicle->find($id)){
+        if(!$vehicle = $this->vehicle->with('user')->find($id)){
             return response()->json(['msg' => 'Veículo não encontrado'], 404);
         }
 
