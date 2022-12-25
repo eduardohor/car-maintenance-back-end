@@ -23,7 +23,7 @@ class StoreUpdateVehicleRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'user_id' => 'required',
             'brand' => 'required|string|min:3|max:15',
             'model' => 'required|string|min:3|max:15',
@@ -31,5 +31,11 @@ class StoreUpdateVehicleRequest extends FormRequest
             'plate' => 'required|string|min:7|max:8'
 
         ];
+        if ($this->method('PUT')) {
+            $rules['user_id'] = [
+                'nullable'
+            ];
+        }
+        return $rules;
     }
 }
